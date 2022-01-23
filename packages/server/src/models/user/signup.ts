@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../../mongo/User';
+import { client as redisClient } from '../../redis/client';
 
 export const signup = async (req: Request, res: Response) => {
     try {
@@ -24,8 +25,10 @@ export const signup = async (req: Request, res: Response) => {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
+        const id = uuidv4();
+
         const userObject = {
-            _id: uuidv4(),
+            _id: id,
             email: email,
             firstname: firstname,
             lastname: lastname,
@@ -39,6 +42,8 @@ export const signup = async (req: Request, res: Response) => {
             secret,
             { expiresIn: '60m' },
         );
+        const redisPayload = '{"taskId": "exampleId"}';
+        await redisClient.lPush(id, redisPayload);
 
         return res
             .status(200)

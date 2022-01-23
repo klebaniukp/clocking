@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { userRouter } from './routes/user';
+import { workRouter } from './routes/work';
 import { client as redisClient } from './redis/client';
 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use(
 );
 
 app.use('/user', userRouter);
+app.use('/work', workRouter);
 
 mongoose
     .connect(CONNECTION_URL)

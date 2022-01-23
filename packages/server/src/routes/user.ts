@@ -16,3 +16,4 @@ userRouter.put('/signup', signupController, signup);
 userRouter.post('/signin', signinController, signin);
 userRouter.get('/userData', checkToken, userData);
 userRouter.delete('/logout', checkToken, logout);
+
