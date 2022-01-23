@@ -7,7 +7,6 @@ import { UserModel } from '../mongo/User';
 export const signup = async (req: Request, res: Response) => {
     try {
         const secret = process.env.JWT_SECRET_TOKEN as string;
-        const refreshToken = process.env.JWT_REFRESH_TOKEN as string;
         const specialSigns = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         const maxAge = 1000 * 60 * 60;
 
@@ -45,12 +44,6 @@ export const signup = async (req: Request, res: Response) => {
             .status(200)
             .clearCookie('token')
             .cookie('token', token, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-                maxAge: maxAge,
-            })
-            .cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,
