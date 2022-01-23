@@ -5,7 +5,7 @@ import { userData } from '../controllers/user/userData';
 
 import { signup } from '../models/user/signup';
 import { signin } from '../models/user/signin';
-import { checkToken } from '../models/checkToken';
+import { checkToken } from '../controllers/checkToken';
 import { logout } from '../models/user/logout';
 
 export const userRouter = express.Router();

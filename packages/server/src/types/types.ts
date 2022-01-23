@@ -5,3 +5,8 @@ export interface IUser {
     lastname: string;
     password: string;
 }
+
+export interface ITask {
+    taskId: string;
+    makerId: string;
+}

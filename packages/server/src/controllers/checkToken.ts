@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 export const checkToken = async (
     req: Request,
@@ -17,10 +17,7 @@ export const checkToken = async (
         if (!jwt.verify(token, secret))
             return res.status(401).json({ message: 'Invalid token' });
 
-        const decoded = jwt.verify(token, secret) as {
-            id: string;
-            email: string;
-        };
+        const decoded = jwt.decode(token) as JwtPayload;
 
         res.locals.id = decoded.id;
         next();

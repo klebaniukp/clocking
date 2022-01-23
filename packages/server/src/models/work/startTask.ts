@@ -27,9 +27,20 @@ export const startTask = async (req: Request, res: Response) => {
         const redisTimestampPayload = JSON.stringify({
             date: dateFormat,
             time: timeFormat,
+            makerId: id,
         });
 
         await redisClient.rPush(taskId, redisTimestampPayload);
+
+        const task = {
+            taskId: taskId,
+            // makerId: id,
+        };
+
+        //every task is pushed to admin field
+        const redisTaskPayload = JSON.stringify(task);
+
+        await redisClient.lPush('admin', redisTaskPayload);
 
         return res
             .status(200)

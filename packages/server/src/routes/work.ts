@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkToken } from '../models/checkToken';
+import { checkToken } from '../controllers/checkToken';
 
 import { pauseTaskController } from '../controllers/work/pauseTaskController';
 import { endTaskController } from '../controllers/work/endTaskController';
