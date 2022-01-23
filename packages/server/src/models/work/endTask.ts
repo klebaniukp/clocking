@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { client as redisClient } from '../../redis/client';
 
-export const pauseWork = async (req: Request, res: Response) => {
+export const endTask = async (req: Request, res: Response) => {
     try {
         const taskId: string = res.locals.taskId;
 
@@ -16,8 +16,10 @@ export const pauseWork = async (req: Request, res: Response) => {
         :${currentDate.getSeconds()}`;
 
         const redisUserPayload = JSON.stringify({
-            date: dateFormat,
-            time: timeFormat,
+            end: {
+                date: dateFormat,
+                time: timeFormat,
+            },
         });
 
         await redisClient.rPush(taskId, redisUserPayload);

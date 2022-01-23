@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import { client as redisClient } from '../../redis/client';
 
-export const startWork = async (req: Request, res: Response) => {
+export const startTask = async (req: Request, res: Response) => {
     try {
         const { description } = req.body;
 

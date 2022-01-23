@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { client as redisClient } from '../../redis/client';
 
-export const pauseWorkController = async (
+export const endTaskController = async (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -13,7 +13,7 @@ export const pauseWorkController = async (
 
         if (currentTask.length === 0) {
             return res.status(400).json({
-                error: 'No task to pause',
+                error: 'No task to end',
             });
         }
 
