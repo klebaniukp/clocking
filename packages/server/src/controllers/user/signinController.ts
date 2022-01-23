@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { UserModel } from '../mongo/User';
+import { UserModel } from '../../mongo/User';
 
-export const signupController = async (
+export const signinController = async (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -11,12 +11,13 @@ export const signupController = async (
 
         const user = await UserModel.findOne({ email });
 
-        if (user) {
+        if (!user) {
             return res.status(400).json({
-                error: 'User already exists',
+                error: "User doesn't exist, try to register first",
             });
         }
 
+        res.locals.user = user;
         next();
     } catch (error) {
         console.log(error);

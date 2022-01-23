@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../mongo/User';
+import { UserModel } from '../../mongo/User';
 
 export const signup = async (req: Request, res: Response) => {
     try {
