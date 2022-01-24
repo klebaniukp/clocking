@@ -1,13 +1,11 @@
-import { signUp } from '../api';
-import { IUserModified } from '../types';
+import { signIn } from '../../api';
+import { IUserModified } from '../../types';
 
-export const signUpService = (formData: {
+export const signInService = (formData: {
     email: string;
-    name: string;
-    lastName: string;
     password: string;
 }) => {
-    signUp(formData)
+    signIn(formData)
         .then(res => {
             const userModified: IUserModified = {
                 _id: res.data._id,

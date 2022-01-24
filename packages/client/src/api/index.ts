@@ -26,8 +26,8 @@ export const signUp = (formData: {
 }) => API.post('/auth/signup');
 
 //user routes
-export const getUser = API.get('/user/userData');
-export const logout = API.delete('/user/logout');
+export const getUser = () => API.get('/user/userData');
+export const logout = () => API.delete('/user/logout');
 
 //work routes
 export const startTask = (formData: { taskId: string }) =>
