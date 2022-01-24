@@ -8,21 +8,18 @@ export const UserInfo = (props: { email: string }) => {
     return (
         <>
             {isHover ? (
-                <Link to={'/profile'} className={'text-decoration-none'}>
-                    <div
-                        onMouseEnter={() => setIsHover(true)}
-                        onMouseLeave={() => setIsHover(false)}>
-                        <UserInfoBox email={props.email} opacity={'1.0'} />
-                    </div>
-                </Link>
+                <div
+                    style={{ cursor: 'pointer' }}
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}>
+                    <UserInfoBox email={props.email} opacity={'1.0'} />
+                </div>
             ) : (
-                <Link to={'/profile'} className={'text-decoration-none'}>
-                    <div
-                        onMouseEnter={() => setIsHover(true)}
-                        onMouseLeave={() => setIsHover(false)}>
-                        <UserInfoBox email={props.email} opacity={'0.6'} />
-                    </div>
-                </Link>
+                <div
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}>
+                    <UserInfoBox email={props.email} opacity={'0.6'} />
+                </div>
             )}
         </>
     );

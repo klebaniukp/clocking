@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export const NavbarTitle = (props: { value: string; logo: string }) => {
     return (
         <>
-            <Link to='/Chat' className='navbar-brand'>
+            <Link to='/Clocking' className='navbar-brand'>
                 <div className='d-flex flex-row mt-3'>
                     <div className='me-1'>
                         <img

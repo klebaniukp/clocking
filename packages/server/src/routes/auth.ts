@@ -1,13 +1,13 @@
 import express from 'express';
-import { signupController } from '../controllers/user/signupController';
-import { signinController } from '../controllers/user/signinController';
+import { signupController } from '../controllers/auth/signupController';
+import { signinController } from '../controllers/auth/signinController';
 
-import { signup } from '../models/user/signup';
-import { signin } from '../models/user/signin';
+import { signup } from '../models/auth/signup';
+import { signin } from '../models/auth/signin';
 
 export const authRouter = express.Router();
 
 authRouter.use(express.json());
 
-authRouter.put('/signup', signupController, signup);
+authRouter.post('/signup', signupController, signup);
 authRouter.post('/signin', signinController, signin);

@@ -20,10 +20,10 @@ export const signIn = (formData: { email: string; password: string }) =>
 
 export const signUp = (formData: {
     email: string;
-    name: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     password: string;
-}) => API.post('/auth/signup');
+}) => API.post('/auth/signup', formData);
 
 //user routes
 export const getUser = () => API.get('/user/userData');

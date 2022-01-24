@@ -6,6 +6,8 @@ export const userData = async (req: Request, res: Response) => {
         const id = res.locals.id;
         const user = await UserModel.findById(id);
 
+        console.log(id);
+
         if (!user) {
             return res.status(401).json({ message: 'No user found' });
         }
@@ -17,7 +19,7 @@ export const userData = async (req: Request, res: Response) => {
             lastname: user.lastname,
         };
 
-        return res.status(200).json({ userModifiedObject });
+        return res.status(200).json({ user: userModifiedObject });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

@@ -12,8 +12,8 @@ export const setUserDataReducer = (
                 return {
                     _id: 'x',
                     email: 'John@Doe.com',
-                    name: 'John',
-                    lastName: 'Doe',
+                    firstname: 'John',
+                    lastname: 'Doe',
                     isUserLoggedIn: false,
                 };
             default:
@@ -23,15 +23,8 @@ export const setUserDataReducer = (
                     return {
                         _id: 'x',
                         email: 'John@Doe.com',
-                        name: 'John',
-                        lastName: 'Doe',
-                        friends: [
-                            {
-                                id: '1039274',
-                                friendRequestStatus: false,
-                                senderId: '1039274',
-                            },
-                        ],
+                        firstname: 'John',
+                        lastname: 'Doe',
                         isUserLoggedIn: false,
                     };
                 }

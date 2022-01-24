@@ -1,19 +1,20 @@
 import { getUser } from '../../api';
-import { IUserModified } from '../../types';
+import { IUserData } from '../../types';
 
-export const getUserDataService = async (req: any, res: any) => {
-    getUser()
-        .then(res => {
-            const userModified: IUserModified = {
-                _id: res.data._id,
-                email: res.data.email,
-                firstname: res.data.firstname,
-                lastname: res.data.lastname,
-            };
+export const getUserDataService = async () => {
+    try {
+        const res = await getUser();
 
-            return userModified;
-        })
-        .catch((err: string) => {
-            console.log(err);
-        });
+        const userModified: IUserData = {
+            _id: res.data.user._id,
+            email: res.data.user.email,
+            firstname: res.data.user.firstname,
+            lastname: res.data.user.lastname,
+            isUserLoggedIn: true,
+        };
+
+        return userModified;
+    } catch (error) {
+        console.log(error);
+    }
 };

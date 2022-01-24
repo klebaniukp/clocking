@@ -1,24 +1,25 @@
 import { signUp } from '../../api';
-import { IUserModified } from '../../types';
+import { IUserData } from '../../types';
 
-export const signUpService = (formData: {
+export const signUpService = async (formData: {
     email: string;
-    name: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     password: string;
 }) => {
-    signUp(formData)
-        .then(res => {
-            const userModified: IUserModified = {
-                _id: res.data._id,
-                email: res.data.email,
-                firstname: res.data.firstname,
-                lastname: res.data.lastname,
-            };
+    try {
+        const res = await signUp(formData);
 
-            return userModified;
-        })
-        .catch((err: string) => {
-            console.log(err);
-        });
+        const user: IUserData = {
+            _id: res.data.user._id,
+            email: res.data.user.email,
+            firstname: res.data.user.firstname,
+            lastname: res.data.user.lastname,
+            isUserLoggedIn: true,
+        };
+
+        return user;
+    } catch (error) {
+        console.log(error);
+    }
 };

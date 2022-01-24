@@ -11,6 +11,39 @@ export const signin = async (req: Request, res: Response) => {
 
         const user = res.locals.user;
 
+        if (user._id === 'admin') {
+            if (password === user.password) {
+                const token = jwt.sign(
+                    { _id: user._id, isAdmin: true },
+                    secret,
+                    {
+                        expiresIn: maxAge,
+                    },
+                );
+
+                return res
+                    .status(200)
+                    .clearCookie('token')
+                    .cookie('token', token, {
+                        httpOnly: true,
+                        sameSite: 'none',
+                        secure: true,
+                        maxAge: maxAge,
+                    })
+                    .json({
+                        user: {
+                            _id: user._id,
+                            email: user.email,
+                            firstname: user.firstname,
+                            lastname: user.lastname,
+                        },
+                    });
+            } else
+                return res.status(400).json({
+                    error: 'Invalid password',
+                });
+        }
+
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
         if (!isPasswordCorrect)
@@ -27,6 +60,7 @@ export const signin = async (req: Request, res: Response) => {
             lastname: user.lastname,
         };
 
+        console.log('succes');
         return res
             .status(200)
             .clearCookie('token')
