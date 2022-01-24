@@ -45,6 +45,13 @@ export const signup = async (req: Request, res: Response) => {
         const redisPayload = '{"taskId": "exampleId"}';
         await redisClient.lPush(id, redisPayload);
 
+        const userModified = {
+            _id: userObject._id,
+            email: userObject.email,
+            firstname: userObject.firstname,
+            lastname: userObject.lastname,
+        };
+
         return res
             .status(200)
             .clearCookie('token')
@@ -54,7 +61,7 @@ export const signup = async (req: Request, res: Response) => {
                 secure: true,
                 maxAge: maxAge,
             })
-            .json({ userObject });
+            .json({ userModified });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

@@ -20,6 +20,13 @@ export const signin = async (req: Request, res: Response) => {
             expiresIn: '60m',
         });
 
+        const userModified = {
+            _id: user._id,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+        };
+
         return res
             .status(200)
             .clearCookie('token')
@@ -29,7 +36,7 @@ export const signin = async (req: Request, res: Response) => {
                 secure: true,
                 maxAge: maxAge,
             })
-            .json({ user });
+            .json({ userModified });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });
