@@ -27,10 +27,10 @@ export const taskProgression = async (req: Request, res: Response) => {
             };
         });
 
-        const taskProgressionFormatted = await Promise.all(taskProgression);
+        const taskProgressionResolved = await Promise.all(taskProgression);
 
         return res.status(200).json({
-            taskProgression: taskProgressionFormatted,
+            taskProgression: taskProgressionResolved,
         });
     } catch (error) {
         console.log(error);
