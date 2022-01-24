@@ -40,4 +40,4 @@ export const endTask = (formData: { taskId: string }) =>
     API.post('/work/endTask');
 
 //admin routes
-export const getTaskProgression = API.get('/admin/taskProgression');
+export const getTaskProgression = () => API.get('/admin/taskProgression');
