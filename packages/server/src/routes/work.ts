@@ -17,7 +17,7 @@ export const workRouter = express.Router();
 workRouter.use(express.json());
 
 workRouter.post('/start', checkToken, startTaskController, startTask);
-workRouter.post('/pause', checkToken, pauseTaskController, pauseTask);
+workRouter.put('/pause', checkToken, pauseTaskController, pauseTask);
 workRouter.post('/resume', checkToken, resumeTaskController, resumeTask);
 workRouter.post('/end', checkToken, endTaskController, endTask);
 workRouter.get('/currentTask', checkToken, getUserCurrentTask);

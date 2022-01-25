@@ -3,7 +3,7 @@ import { client as redisClient } from '../../redis/client';
 
 export const pauseTask = async (req: Request, res: Response) => {
     try {
-        const taskId: string = res.locals.taskId;
+        const taskId = req.cookies.taskId;
 
         const currentDate = new Date();
 
@@ -22,6 +22,10 @@ export const pauseTask = async (req: Request, res: Response) => {
         });
 
         await redisClient.rPush(taskId, redisUserPayload);
+
+        return res.status(200).json({
+            message: 'Task paused',
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

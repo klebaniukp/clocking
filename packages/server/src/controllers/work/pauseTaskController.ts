@@ -7,13 +7,19 @@ export const pauseTaskController = async (
     next: NextFunction,
 ) => {
     try {
-        const taskId: string = req.cookies.taskId;
+        const taskId = req.cookies.taskId;
 
         const currentTask = await redisClient.lRange(taskId, 0, -1);
 
         if (currentTask.length === 0) {
             return res.status(400).json({
                 error: 'No task to pause',
+            });
+        }
+
+        if (currentTask[currentTask.length - 1] === 'paused') {
+            return res.status(400).json({
+                error: 'Task is already paused',
             });
         }
 

@@ -31,13 +31,11 @@ export const logout = () => API.delete('/user/logout');
 
 //work routes
 export const startTask = (formData: { description: string }) =>
-    API.post('/work/start');
+    API.post('/work/start', formData);
 
-export const pauseTask = (formData: { description: string }) =>
-    API.post('/work/pause');
+export const pauseTask = () => API.put('/work/pause');
 
-export const endTask = (formData: { description: string }) =>
-    API.post('/work/end');
+export const endTask = () => API.post('/work/end');
 
 export const userTaskProgression = () => API.get('/work/currentTask');
 

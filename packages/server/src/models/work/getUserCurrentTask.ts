@@ -11,7 +11,12 @@ export const getUserCurrentTask = async (req: Request, res: Response) => {
             return res.status(200).json({ message: 'No task' });
 
         const taskDescription = JSON.parse(userLastTask[0]).description;
-        const taskTimeStamps = await redisClient.lRange(userLastTask[0], 0, -1);
+        const taskTimeStamps = await redisClient.lRange(
+            JSON.parse(userLastTask[0]).taskId,
+            0,
+            -1,
+        );
+        console.log(taskTimeStamps);
 
         const taskTimeStampsParsed = taskTimeStamps.map(taskTimeStamp => {
             const timeStampParsed = JSON.parse(taskTimeStamp);

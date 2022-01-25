@@ -15,7 +15,6 @@ export const Root = () => {
     useEffect(() => {
         getUserDataService().then(userData => {
             if (userData) {
-                console.log(userData);
                 dispatch({ type: 'SET_USER_DATA', payload: userData });
             }
         });
