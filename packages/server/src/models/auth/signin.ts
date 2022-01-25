@@ -70,7 +70,7 @@ export const signin = async (req: Request, res: Response) => {
                 secure: true,
                 maxAge: maxAge,
             })
-            .json({ userModified });
+            .json({ user: userModified });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

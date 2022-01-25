@@ -14,6 +14,12 @@ import { IUserData } from '../types';
 export const Root = () => {
     const dispatch = useDispatch();
 
+    const userData: IUserData = useSelector(
+        (state: RootState) => state.userData,
+    );
+
+    console.log(userData.isUserLoggedIn);
+
     useEffect(() => {
         getUserDataService().then(userData => {
             if (userData) {
@@ -22,10 +28,6 @@ export const Root = () => {
             }
         });
     }, []);
-
-    const userData: IUserData = useSelector(
-        (state: RootState) => state.userData,
-    );
 
     const isUserAdmin = () => {
         if (userData._id === 'admin') {
@@ -72,10 +74,6 @@ export const Root = () => {
                     </Switch>
                 ) : (
                     <Switch>
-                        <Route exact path={routes.home}>
-                            <Redirect to={routes.auth} />
-                        </Route>
-
                         <Route exact path={routes.auth} component={Auth} />
                     </Switch>
                 )}

@@ -35,6 +35,7 @@ export const SignIn = ({
 
         signInService(formData).then(userData => {
             if (userData) {
+                console.log(userData);
                 dispatch({ type: 'SET_USER_DATA', payload: userData });
                 history.push('/clocking');
             }

@@ -13,12 +13,30 @@ export const DropdownList = () => {
     const renderForAdmin = () => {
         if (userData._id === 'admin') {
             return (
-                <Item value='Task Progression' path={'/adminTaskProgression'} />
+                <Item
+                    value='Admin Task Progression'
+                    path={'/adminTaskProgression'}
+                />
             );
         } else {
+            return <Item value='Task Progression' path={'/taskProgression'} />;
+        }
+    };
+
+    const renderOnlyForLoggedIn = () => {
+        if (userData.isUserLoggedIn) {
             return (
-                <Item value='Task Progression' path={'/adminTaskProgression'} />
+                <>
+                    <Item value={'Clocking'} path={'/clocking'} />
+                    {renderForAdmin()}
+                </>
             );
+        }
+    };
+
+    const renderOnlyForGuest = () => {
+        if (!userData.isUserLoggedIn) {
+            return <Item value={'Login'} path={'/auth'} />;
         }
     };
 
@@ -30,9 +48,8 @@ export const DropdownList = () => {
                     <ul
                         className='dropdown-menu dropdown-menu-dark'
                         aria-labelledby='navbarDarkDropdownMenuLink'>
-                        <Item value={'Clocking'} path={'/clocking'} />
-                        <Item value={'Login'} path={'/auth'} />
-                        {renderForAdmin()}
+                        {renderOnlyForLoggedIn()}
+                        {renderOnlyForGuest()}
                     </ul>
                 </li>
             </ul>
