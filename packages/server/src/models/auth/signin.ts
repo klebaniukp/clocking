@@ -60,7 +60,6 @@ export const signin = async (req: Request, res: Response) => {
             lastname: user.lastname,
         };
 
-        console.log('succes');
         return res
             .status(200)
             .clearCookie('token')

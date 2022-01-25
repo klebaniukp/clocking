@@ -11,13 +11,12 @@ export const pauseTask = async (req: Request, res: Response) => {
             currentDate.getMonth() + 1
         }-${currentDate.getDate()}`;
 
-        const timeFormat = `${currentDate.getHours()}
-        :${currentDate.getMinutes()}
-        :${currentDate.getSeconds()}`;
+        const timeFormat = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
 
         const redisUserPayload = JSON.stringify({
             date: dateFormat,
             time: timeFormat,
+            makerId: res.locals.id,
             type: 'pause',
         });
 

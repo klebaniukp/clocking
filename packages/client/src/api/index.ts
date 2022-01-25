@@ -35,7 +35,9 @@ export const startTask = (formData: { description: string }) =>
 
 export const pauseTask = () => API.put('/work/pause');
 
-export const endTask = () => API.post('/work/end');
+export const endTask = () => API.put('/work/end');
+
+export const resumeTask = () => API.put('/work/resume');
 
 export const userTaskProgression = () => API.get('/work/currentTask');
 

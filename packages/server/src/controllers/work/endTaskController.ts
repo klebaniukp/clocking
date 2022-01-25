@@ -23,18 +23,18 @@ export const endTaskController = async (
             taskExtended[taskExtended.length - 1],
         ).type;
 
-        console.log(lastTimestamp);
-
         if (
-            lastTimestamp === 'end' ||
             lastTimestamp === 'pause' ||
-            lastTimestamp === 'start'
+            lastTimestamp === 'start' ||
+            lastTimestamp === 'resume'
         )
             return next();
         else {
             return res
                 .status(400)
-                .json({ message: 'You have to finish started task first' });
+                .json({
+                    message: 'You have to start some task first to end it',
+                });
         }
     } catch (error) {
         console.log(error);

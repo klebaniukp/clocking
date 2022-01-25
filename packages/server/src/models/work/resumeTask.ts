@@ -3,7 +3,8 @@ import { client as redisClient } from '../../redis/client';
 
 export const resumeTask = async (req: Request, res: Response) => {
     try {
-        const taskId: string = res.locals.taskId;
+        const taskId = req.cookies.taskId;
+        const id = res.locals.id;
 
         const currentDate = new Date();
 
@@ -11,13 +12,12 @@ export const resumeTask = async (req: Request, res: Response) => {
             currentDate.getMonth() + 1
         }-${currentDate.getDate()}`;
 
-        const timeFormat = `${currentDate.getHours()}
-        :${currentDate.getMinutes()}
-        :${currentDate.getSeconds()}`;
+        const timeFormat = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
 
         const redisUserPayload = JSON.stringify({
             date: dateFormat,
             time: timeFormat,
+            makerId: id,
             type: 'resume',
         });
 

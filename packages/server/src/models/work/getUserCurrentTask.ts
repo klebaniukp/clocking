@@ -16,12 +16,9 @@ export const getUserCurrentTask = async (req: Request, res: Response) => {
             0,
             -1,
         );
-        console.log(taskTimeStamps);
 
         const taskTimeStampsParsed = taskTimeStamps.map(taskTimeStamp => {
             const timeStampParsed = JSON.parse(taskTimeStamp);
-
-            console.log(timeStampParsed);
 
             return {
                 date: timeStampParsed.date,
@@ -31,11 +28,12 @@ export const getUserCurrentTask = async (req: Request, res: Response) => {
             };
         });
 
-        if (taskTimeStamps.length === 0) {
-            return res.status(200).json({
-                message: 'No task found',
-            });
-        }
+        if (taskTimeStamps)
+            if (taskTimeStamps.length === 0) {
+                return res.status(200).json({
+                    message: 'No task found',
+                });
+            }
 
         if (
             taskTimeStampsParsed[taskTimeStampsParsed.length - 1].type === 'end'

@@ -4,10 +4,15 @@ import { client as redisClient } from '../../redis/client';
 
 export const endTask = async (req: Request, res: Response) => {
     try {
-        const { description } = req.body;
-
         const id = res.locals.id;
-        const taskId = uuidv4();
+        const taskId = req.cookies.taskId;
+
+        const userLastTask = await redisClient.lRange(id, 0, 0);
+
+        if (userLastTask.length === 0)
+            return res.status(200).json({ message: 'No task' });
+
+        const taskDescription = JSON.parse(userLastTask[0]).description;
 
         const currentDate = new Date();
 
@@ -17,13 +22,6 @@ export const endTask = async (req: Request, res: Response) => {
 
         const timeFormat = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
 
-        const redisUserPayload = JSON.stringify({
-            taskId: taskId,
-            description: description,
-        });
-
-        await redisClient.lPush(id, redisUserPayload);
-
         const redisTimestampPayload = JSON.stringify({
             date: dateFormat,
             time: timeFormat,
@@ -32,25 +30,28 @@ export const endTask = async (req: Request, res: Response) => {
         });
 
         await redisClient.rPush(taskId, redisTimestampPayload);
+        const taskTimeStamps = await redisClient.lRange(
+            JSON.parse(userLastTask[0]).taskId,
+            0,
+            -1,
+        );
 
-        const task = {
-            taskId: taskId,
-        };
+        const taskTimeStampsParsed = taskTimeStamps.map(taskTimeStamp => {
+            const timeStampParsed = JSON.parse(taskTimeStamp);
 
-        //every task is pushed to admin field
-        const redisTaskPayload = JSON.stringify(task);
+            return {
+                date: timeStampParsed.date,
+                time: timeStampParsed.time,
+                makerId: timeStampParsed.makerId,
+                type: timeStampParsed.type,
+            };
+        });
 
-        await redisClient.lPush('admin', redisTaskPayload);
-
-        return res
-            .status(200)
-            .clearCookie('taskId')
-            .cookie('taskId', taskId, {
-                httpOnly: true,
-                sameSite: 'none',
-                secure: true,
-            })
-            .json({ message: 'Work started' });
+        return res.status(200).json({
+            message: 'Work ended',
+            description: taskDescription,
+            timeStamps: taskTimeStampsParsed,
+        });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

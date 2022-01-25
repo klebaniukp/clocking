@@ -11,6 +11,8 @@ import { ITask } from '../../../types/index';
 import { InfoButton } from '../../atoms/Button/InfoButton';
 import { startTaskService } from '../../../services/work/startTaskService';
 import { pauseTaskService } from '../../../services/work/pauseTaskService';
+import { endTaskService } from '../../../services/work/endTaskService';
+import { resumeTaskService } from '../../../services/work/resumeTaskService';
 
 export const ClockingModel = () => {
     const [placeholder, setPlaceholder] = useState(
@@ -30,13 +32,15 @@ export const ClockingModel = () => {
                 setPlaceholder(task.description);
                 setIsDisabled(true);
             }
-            if (task.timeStamps.length > 0) {
-                console.log('dispatching');
-                dispatch({
-                    type: 'SET_CURRENT_TASK',
-                    payload: task.timeStamps,
-                });
-            }
+
+            if (task.timeStamps)
+                if (task.timeStamps.length > 0) {
+                    console.log('dispatching');
+                    dispatch({
+                        type: 'SET_CURRENT_TASK',
+                        payload: task.timeStamps,
+                    });
+                }
         });
     }, []);
 
@@ -50,7 +54,7 @@ export const ClockingModel = () => {
                                 <WarningButton value='pause' />
                             </div>
 
-                            <div className='ps-1'>
+                            <div className='ps-1' onClick={() => endHandler()}>
                                 <DangerButton value='end' />
                             </div>
                         </>
@@ -58,8 +62,10 @@ export const ClockingModel = () => {
                 case 'pause':
                     return (
                         <>
-                            <InfoButton value='resume' />
-                            <div className='ps-1'>
+                            <div onClick={() => resumeHandler()}>
+                                <InfoButton value='resume' />
+                            </div>
+                            <div className='ps-1' onClick={() => endHandler()}>
                                 <DangerButton value='end' />
                             </div>
                         </>
@@ -70,10 +76,16 @@ export const ClockingModel = () => {
                             <div onClick={() => pauseHandler()}>
                                 <WarningButton value='pause' />
                             </div>
-                            <div className='ps-1'>
+                            <div className='ps-1' onClick={() => endHandler()}>
                                 <DangerButton value='end' />
                             </div>
                         </>
+                    );
+                case 'end':
+                    return (
+                        <div onClick={() => startHandler()}>
+                            <SuccessButton value='start' />
+                        </div>
                     );
                 default:
                     return (
@@ -88,12 +100,13 @@ export const ClockingModel = () => {
         console.log(placeholder);
         startTaskService({ description: placeholder }).then(task => {
             if (task) {
-                getTimestampsService().then(timestamps => {
-                    if (timestamps) {
+                getCurrentTaskService().then(task => {
+                    if (task.timeStamps.length > 0) {
                         dispatch({
                             type: 'SET_CURRENT_TASK',
-                            payload: timestamps,
+                            payload: task.timeStamps,
                         });
+                        setIsDisabled(true);
                     }
                 });
             }
@@ -103,14 +116,43 @@ export const ClockingModel = () => {
     const pauseHandler = () => {
         pauseTaskService().then(task => {
             if (task) {
-                getTimestampsService().then(timestamps => {
-                    if (timestamps) {
+                getCurrentTaskService().then(task => {
+                    if (task.timeStamps)
+                        if (task.timeStamps.length > 0) {
+                            dispatch({
+                                type: 'SET_CURRENT_TASK',
+                                payload: task.timeStamps,
+                            });
+                        }
+                });
+            }
+        });
+    };
+
+    const resumeHandler = () => {
+        resumeTaskService().then(task => {
+            if (task) {
+                getCurrentTaskService().then(task => {
+                    if (task.timeStamps.length > 0) {
                         dispatch({
                             type: 'SET_CURRENT_TASK',
-                            payload: timestamps,
+                            payload: task.timeStamps,
                         });
                     }
                 });
+            }
+        });
+    };
+
+    const endHandler = () => {
+        endTaskService().then(task => {
+            if (task.timeStamps && task.description) {
+                dispatch({
+                    type: 'SET_CURRENT_TASK',
+                    payload: task.timeStamps,
+                });
+                setPlaceholder(`${task.description} [ended]`);
+                setIsDisabled(false);
             }
         });
     };

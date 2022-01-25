@@ -23,8 +23,6 @@ export const startTaskController = async (
             taskExtended[taskExtended.length - 1],
         ).type;
 
-        console.log(lastTimestamp);
-
         if (lastTimestamp === 'end') return next();
         else {
             return res

@@ -17,6 +17,7 @@ export const Logout = () => {
     const logoutAction = () => {
         logout().then(() => {
             dispatch({ type: 'LOGOUT' });
+            dispatch({ type: 'CLEAR_CURRENT_TASK' });
             history.push('/auth');
         });
     };

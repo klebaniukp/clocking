@@ -9,15 +9,15 @@ export const resumeTaskController = async (
     try {
         const taskId: string = req.cookies.taskId;
 
-        const currentTask = await redisClient.lRange(taskId, 0, -1);
+        const currentTaskLastObj = await redisClient.lRange(taskId, -1, -1);
 
-        const userLastTaskId = JSON.parse(currentTask[0]).taskId;
+        if (currentTaskLastObj.length === 0) {
+            return res.status(400).json({ message: 'No task to resume' });
+        }
 
-        const lastTimestamp = await redisClient.lRange(userLastTaskId, -1, -1);
+        const currentTaskLastObjParsed = JSON.parse(currentTaskLastObj[0]);
 
-        res.locals.taskId = taskId;
-
-        if (JSON.parse(lastTimestamp[0]).type === 'pause') next();
+        if (currentTaskLastObjParsed.type === 'pause') return next();
         else
             return res
                 .status(400)

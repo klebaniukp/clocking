@@ -18,6 +18,6 @@ workRouter.use(express.json());
 
 workRouter.post('/start', checkToken, startTaskController, startTask);
 workRouter.put('/pause', checkToken, pauseTaskController, pauseTask);
-workRouter.post('/resume', checkToken, resumeTaskController, resumeTask);
-workRouter.post('/end', checkToken, endTaskController, endTask);
+workRouter.put('/resume', checkToken, resumeTaskController, resumeTask);
+workRouter.put('/end', checkToken, endTaskController, endTask);
 workRouter.get('/currentTask', checkToken, getUserCurrentTask);
