@@ -12,3 +12,10 @@ export interface IUserModified {
     firstname: string;
     lastname: string;
 }
+
+export interface ITask {
+    date: string;
+    time: string;
+    makerId: string;
+    type: string;
+}

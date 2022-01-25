@@ -7,20 +7,21 @@ export const resumeTaskController = async (
     next: NextFunction,
 ) => {
     try {
-        const userId = res.locals.id;
+        const taskId: string = req.cookies.taskId;
 
-        const userLastTasks = await redisClient.lRange(userId, 0, 0);
+        const currentTask = await redisClient.lRange(taskId, 0, -1);
 
-        const userLastTaskId = JSON.parse(userLastTasks[0]).taskId;
+        const userLastTaskId = JSON.parse(currentTask[0]).taskId;
 
         const lastTimestamp = await redisClient.lRange(userLastTaskId, -1, -1);
+
+        res.locals.taskId = taskId;
 
         if (JSON.parse(lastTimestamp[0]).type === 'pause') next();
         else
             return res
                 .status(400)
                 .json({ message: 'You have to pause started task first' });
-                
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

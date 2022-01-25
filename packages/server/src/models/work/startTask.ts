@@ -44,12 +44,13 @@ export const startTask = async (req: Request, res: Response) => {
 
         return res
             .status(200)
-            .json({ message: 'Work started' })
+            .clearCookie('taskId')
             .cookie('taskId', taskId, {
                 httpOnly: true,
                 sameSite: 'none',
                 secure: true,
-            });
+            })
+            .json({ message: 'Work started' });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: (error as Error).message });

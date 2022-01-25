@@ -1,6 +1,6 @@
 import { endTask } from '../../api';
 
-export const endTaskService = async (formData: { taskId: string }) => {
+export const endTaskService = async (formData: { description: string }) => {
     try {
         const response = await endTask(formData);
 

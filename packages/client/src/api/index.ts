@@ -30,14 +30,16 @@ export const getUser = () => API.get('/user/userData');
 export const logout = () => API.delete('/user/logout');
 
 //work routes
-export const startTask = (formData: { taskId: string }) =>
-    API.post('/work/startTask');
+export const startTask = (formData: { description: string }) =>
+    API.post('/work/start');
 
-export const pauseTask = (formData: { taskId: string }) =>
-    API.post('/work/pauseTask');
+export const pauseTask = (formData: { description: string }) =>
+    API.post('/work/pause');
 
-export const endTask = (formData: { taskId: string }) =>
-    API.post('/work/endTask');
+export const endTask = (formData: { description: string }) =>
+    API.post('/work/end');
+
+export const userTaskProgression = () => API.get('/work/currentTask');
 
 //admin routes
 export const getTaskProgression = () => API.get('/admin/taskProgression');

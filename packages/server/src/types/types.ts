@@ -10,3 +10,10 @@ export interface ITask {
     taskId: string;
     makerId: string;
 }
+
+export interface ITaskClient {
+    date: string;
+    time: string;
+    makerId: string;
+    type: string;
+}

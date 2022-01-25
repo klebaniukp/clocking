@@ -1,6 +1,6 @@
 import { startTask } from '../../api';
 
-export const startTaskService = async (formData: { taskId: string }) => {
+export const startTaskService = async (formData: { description: string }) => {
     try {
         const response = await startTask(formData);
 

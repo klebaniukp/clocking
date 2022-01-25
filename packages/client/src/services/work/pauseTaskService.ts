@@ -1,6 +1,6 @@
 import { pauseTask } from '../../api';
 
-export const pauseTaskService = async (formData: { taskId: string }) => {
+export const pauseTaskService = async (formData: { description: string }) => {
     try {
         const response = await pauseTask(formData);
 

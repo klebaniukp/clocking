@@ -1,12 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { client as redisClient } from '../../redis/client';
 
 export const resumeTask = async (req: Request, res: Response) => {
     try {
-        const userId = res.locals.id;
-
-        const userLastTasks = await redisClient.lRange(userId, 0, 0);
-        const lastTaskId = JSON.parse(userLastTasks[0]).taskId;
+        const taskId: string = res.locals.taskId;
 
         const currentDate = new Date();
 
@@ -24,7 +21,9 @@ export const resumeTask = async (req: Request, res: Response) => {
             type: 'resume',
         });
 
-        await redisClient.rPush(lastTaskId, redisUserPayload);
+        await redisClient.rPush(taskId, redisUserPayload);
+
+        return res.status(200).json({ message: 'Task resumed' });
     } catch (err) {
         console.log(err);
         return res.status(500).json({ message: (err as Error).message });

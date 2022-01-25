@@ -47,8 +47,41 @@ export const signup = async (req: Request, res: Response) => {
             secret,
             { expiresIn: '60m' },
         );
-        const redisPayload = '{"taskId": "exampleId"}';
-        await redisClient.lPush(id, redisPayload);
+
+        const taskId = uuidv4();
+
+        const currentDate = new Date();
+
+        const dateFormat = `${currentDate.getFullYear()}-${
+            currentDate.getMonth() + 1
+        }-${currentDate.getDate()}`;
+
+        const timeFormat = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+
+        const redisUserPayload = JSON.stringify({
+            taskId: taskId,
+            description: 'description',
+        });
+
+        await redisClient.lPush(id, redisUserPayload);
+
+        const redisTimestampPayload = JSON.stringify({
+            date: dateFormat,
+            time: timeFormat,
+            makerId: id,
+            type: 'end',
+        });
+
+        await redisClient.rPush(taskId, redisTimestampPayload);
+
+        const task = {
+            taskId: taskId,
+        };
+
+        //every task is pushed to admin field
+        const redisTaskPayload = JSON.stringify(task);
+
+        await redisClient.lPush('admin', redisTaskPayload);
 
         const userModified = {
             _id: userObject._id,

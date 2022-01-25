@@ -19,7 +19,7 @@ export const checkToken = async (
 
         const decoded = jwt.decode(token) as JwtPayload;
 
-        res.locals.id = decoded._id;
+        res.locals.id = decoded.id;
         next();
     } catch (error) {
         console.log(error);
