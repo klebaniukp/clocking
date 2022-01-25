@@ -18,6 +18,7 @@ export const pauseTask = async (req: Request, res: Response) => {
         const redisUserPayload = JSON.stringify({
             date: dateFormat,
             time: timeFormat,
+            type: 'pause',
         });
 
         await redisClient.rPush(taskId, redisUserPayload);

@@ -1,13 +1,15 @@
 import { pauseTask } from '../../api';
 
-export const pauseTaskService = (formData: { taskId: string }) => {
-    pauseTask(formData)
-        .then(res => {
-            if (res.status === 200) return true;
+export const pauseTaskService = async (formData: { taskId: string }) => {
+    try {
+        const response = await pauseTask(formData);
 
+        if (response.status === 200) {
+            return true;
+        } else {
             return false;
-        })
-        .catch((err: string) => {
-            console.log(err);
-        });
+        }
+    } catch (err) {
+        console.log(err);
+    }
 };

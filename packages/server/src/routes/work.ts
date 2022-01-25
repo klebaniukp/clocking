@@ -1,6 +1,7 @@
 import express from 'express';
 import { checkToken } from '../controllers/checkToken';
 
+import { startTaskController } from '../controllers/work/startTaskController';
 import { pauseTaskController } from '../controllers/work/pauseTaskController';
 import { endTaskController } from '../controllers/work/endTaskController';
 
@@ -12,6 +13,6 @@ export const workRouter = express.Router();
 
 workRouter.use(express.json());
 
-workRouter.post('/start', checkToken, startTask);
+workRouter.post('/start', checkToken, startTaskController, startTask);
 workRouter.post('/pause', checkToken, pauseTaskController, pauseTask);
 workRouter.post('/end', checkToken, endTaskController, endTask);

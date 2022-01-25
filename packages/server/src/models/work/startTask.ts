@@ -28,13 +28,13 @@ export const startTask = async (req: Request, res: Response) => {
             date: dateFormat,
             time: timeFormat,
             makerId: id,
+            type: 'start',
         });
 
         await redisClient.rPush(taskId, redisTimestampPayload);
 
         const task = {
             taskId: taskId,
-            // makerId: id,
         };
 
         //every task is pushed to admin field

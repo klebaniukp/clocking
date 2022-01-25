@@ -16,10 +16,9 @@ export const endTask = async (req: Request, res: Response) => {
         :${currentDate.getSeconds()}`;
 
         const redisUserPayload = JSON.stringify({
-            end: {
-                date: dateFormat,
-                time: timeFormat,
-            },
+            date: dateFormat,
+            time: timeFormat,
+            type: 'end',
         });
 
         await redisClient.rPush(taskId, redisUserPayload);

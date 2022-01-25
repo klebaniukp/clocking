@@ -1,13 +1,15 @@
 import { endTask } from '../../api';
 
-export const endTaskService = (formData: { taskId: string }) => {
-    endTask(formData)
-        .then(res => {
-            if (res.status === 200) return true;
+export const endTaskService = async (formData: { taskId: string }) => {
+    try {
+        const response = await endTask(formData);
 
+        if (response.status === 200) {
+            return true;
+        } else {
             return false;
-        })
-        .catch((err: string) => {
-            console.log(err);
-        });
+        }
+    } catch (err) {
+        console.log(err);
+    }
 };
