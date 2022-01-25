@@ -21,10 +21,12 @@ export const signup = async (req: Request, res: Response) => {
             });
         }
 
-        if (!specialSigns.test(password))
+        if (!specialSigns.test(password)) {
+            console.log(password);
             return res.status(400).json({
                 message: 'Invalid password, provide special sign',
             });
+        }
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
