@@ -42,4 +42,4 @@ export const resumeTask = () => API.put('/work/resume');
 export const userTaskProgression = () => API.get('/work/currentTask');
 
 //admin routes
-export const getTaskProgression = () => API.get('/admin/taskProgression');
+export const adminTaskProgression = () => API.get('/admin/taskProgression');

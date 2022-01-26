@@ -1,8 +1,11 @@
 import { Request, Response } from 'express';
 import { client as redisClient } from '../../redis/client';
+import { UserModel } from '../../mongo/User';
+import { ITaskClient } from '../../types/types';
 
 interface IAdminTask {
     taskId: string;
+    makerId: string;
 }
 
 export const taskProgression = async (req: Request, res: Response) => {
@@ -11,18 +14,35 @@ export const taskProgression = async (req: Request, res: Response) => {
 
         const taskProgression = tasks.map(async task => {
             const taskId = task.taskId;
+            const makerId = task.makerId;
+
+            const maker = await UserModel.findById(makerId);
+
+            if (!maker) {
+                throw new Error('Maker not found');
+            }
+
+            const makerEmail = maker.email;
 
             const taskProgression = await redisClient.lRange(taskId, 0, -1);
 
             const taskProgressionFormatted = taskProgression.map(
                 taskProgression => {
-                    taskProgression = JSON.parse(taskProgression);
-                    return taskProgression;
+                    const taskFormated = JSON.parse(taskProgression);
+
+                    const returnal = {
+                        date: taskFormated.date,
+                        time: taskFormated.time,
+                        type: taskFormated.type,
+                    };
+
+                    return returnal;
                 },
             );
 
             return {
                 taskId: taskId,
+                maker: makerEmail,
                 taskProgression: taskProgressionFormatted,
             };
         });

@@ -35,6 +35,7 @@ export const startTask = async (req: Request, res: Response) => {
 
         const task = {
             taskId: taskId,
+            makerId: id,
         };
 
         //every task is pushed to admin field

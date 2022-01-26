@@ -31,23 +31,6 @@ export const UserTaskTimeStamps = () => {
                         </div>
                     );
                 })}
-
-                {/* <div className='container bg-light'>
-                    <div className='row border border-2 border-bottom-0'>
-                        <div className='col'>Date</div>
-                        <div className='col'>{currentTask[0].date}</div>
-                    </div>
-
-                    <div className='row border border-2'>
-                        <div className='col'>Time</div>
-                        <div className='col'>{currentTask[0].time}</div>
-                    </div>
-
-                    <div className='row border border-2 border-top-0'>
-                        <div className='col'>Type</div>
-                        <div className='col'>{currentTask[0].type}</div>
-                    </div>
-                </div> */}
             </div>
         </div>
     );

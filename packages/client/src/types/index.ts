@@ -19,3 +19,10 @@ export interface ITask {
     makerId: string;
     type: string;
 }
+
+export interface ITaskAdmin {
+    date: string;
+    time: string;
+    maker: string;
+    type: string;
+}

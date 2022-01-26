@@ -14,7 +14,7 @@ export const signin = async (req: Request, res: Response) => {
         if (user._id === 'admin') {
             if (password === user.password) {
                 const token = jwt.sign(
-                    { _id: user._id, isAdmin: true },
+                    { id: user._id, isAdmin: true },
                     secret,
                     {
                         expiresIn: maxAge,

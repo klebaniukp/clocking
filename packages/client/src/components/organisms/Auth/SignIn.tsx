@@ -8,6 +8,7 @@ import { AuthSwitchButton } from '../../atoms/Button/AuthSwitchButton';
 import { Card } from '../../atoms/Box/Card';
 import { signInService } from '../../../services/auth/signInService';
 import { useHistory } from 'react-router-dom';
+import { IUserData } from '../../../types';
 
 export const SignIn = ({
     value,
@@ -18,6 +19,10 @@ export const SignIn = ({
 }) => {
     const showPassword: boolean = useSelector(
         (state: RootState) => state.showPassword,
+    );
+
+    const userData: IUserData = useSelector(
+        (state: RootState) => state.userData,
     );
 
     const dispatch = useDispatch();
@@ -37,7 +42,9 @@ export const SignIn = ({
             if (userData) {
                 console.log(userData);
                 dispatch({ type: 'SET_USER_DATA', payload: userData });
-                history.push('/clocking');
+                if (userData._id === 'admin')
+                    history.push('/adminTaskProgression');
+                else history.push('/clocking');
             }
         });
     };

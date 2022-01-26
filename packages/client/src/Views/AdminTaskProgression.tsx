@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { TaskProgression } from '../components/organisms/admin/TaskProgression';
 
 export const AdminTaskProgression = () => {
-    return <div>AdminTaskProgression</div>;
+    return (
+        <div>
+            <TaskProgression />
+        </div>
+    );
 };

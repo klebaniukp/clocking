@@ -4,7 +4,7 @@ import { UserModel } from '../../mongo/User';
 export const userData = async (req: Request, res: Response) => {
     try {
         const id = res.locals.id;
-        const user = await UserModel.findOne({ _id: id });
+        const user = await UserModel.findById(id);
 
         if (!user) {
             return res.status(401).json({ message: 'No user found' });
