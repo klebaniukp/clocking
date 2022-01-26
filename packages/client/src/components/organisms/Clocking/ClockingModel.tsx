@@ -97,7 +97,6 @@ export const ClockingModel = () => {
     };
 
     const startHandler = () => {
-        console.log(placeholder);
         startTaskService({ description: placeholder }).then(task => {
             if (task) {
                 getCurrentTaskService().then(task => {
@@ -151,7 +150,7 @@ export const ClockingModel = () => {
                     type: 'SET_CURRENT_TASK',
                     payload: task.timeStamps,
                 });
-                setPlaceholder(`${task.description} [ended]`);
+
                 setIsDisabled(false);
             }
         });
@@ -159,8 +158,8 @@ export const ClockingModel = () => {
 
     return (
         <div
-            className='d-flex flex-row justify-content-center align-items-start'
-            style={{ height: '90vh', paddingTop: '5vh' }}>
+            className='d-flex flex-row justify-content-center align-items-end'
+            style={{ height: '10vh', paddingTop: '5vh', marginBottom: '5vh' }}>
             <div className='w-50 me-1'>
                 <ClockingInput
                     isDisabled={isDisabled}

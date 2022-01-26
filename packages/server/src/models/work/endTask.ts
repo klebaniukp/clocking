@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 import { client as redisClient } from '../../redis/client';
 
 export const endTask = async (req: Request, res: Response) => {
