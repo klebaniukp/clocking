@@ -6,6 +6,7 @@ import { ITaskClient } from '../../types/types';
 interface IAdminTask {
     taskId: string;
     makerId: string;
+    description: string;
 }
 
 export const taskProgression = async (req: Request, res: Response) => {
@@ -15,6 +16,7 @@ export const taskProgression = async (req: Request, res: Response) => {
         const taskProgression = tasks.map(async task => {
             const taskId = task.taskId;
             const makerId = task.makerId;
+            const description = task.description;
 
             const maker = await UserModel.findById(makerId);
 
@@ -34,6 +36,7 @@ export const taskProgression = async (req: Request, res: Response) => {
                         date: taskFormated.date,
                         time: taskFormated.time,
                         type: taskFormated.type,
+                        makerId: makerId,
                     };
 
                     return returnal;
@@ -43,6 +46,7 @@ export const taskProgression = async (req: Request, res: Response) => {
             return {
                 taskId: taskId,
                 maker: makerEmail,
+                description: description,
                 taskProgression: taskProgressionFormatted,
             };
         });

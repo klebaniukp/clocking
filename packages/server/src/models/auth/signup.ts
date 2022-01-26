@@ -76,6 +76,7 @@ export const signup = async (req: Request, res: Response) => {
         const task = {
             taskId: taskId,
             makerId: id,
+            description: 'description',
         };
 
         //every task is pushed to admin field

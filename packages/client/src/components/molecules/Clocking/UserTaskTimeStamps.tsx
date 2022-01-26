@@ -12,8 +12,9 @@ export const UserTaskTimeStamps = () => {
         <div className='d-flex justify-content-center '>
             <div className='d-flex flex-column w-25'>
                 {currentTask.map(task => {
+                    const key = task.time + task.makerId;
                     return (
-                        <div className='container bg-light m-2'>
+                        <div className='container bg-light m-2' key={key}>
                             <div className='row border border-2 border-bottom-0'>
                                 <div className='col'>Date</div>
                                 <div className='col'>{task.date}</div>
