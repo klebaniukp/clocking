@@ -122,3 +122,5 @@ dist
 .pnp.*
 
 dist/
+
+clocking.code-workspace
