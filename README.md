@@ -2,6 +2,12 @@
 
 APP FINISHED
 
+## clocking in peerspective of user
+
+-   You can register/login to some account and start task, you can set task description, if not provided it will be generated automatically.
+-   Next you can pause, resume or end task. For each of operations (start,pause,resume,end) you have collected timestamps. If account has started task its timestamps and description will be generated and you will not be able to start another task.
+-   When you login on admin account (passes below tech stack) you can see all tasks and their details (description, timestamps, maker email).
+
 APP FUNCTIONALITIES:
 
 -   Singup / signin
