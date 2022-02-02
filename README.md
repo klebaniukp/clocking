@@ -33,5 +33,5 @@ password: Password1$
 
 ## Photos 🏙
 
-![worker-panel]('packages/client/public/worker-panel.png')
-![admin-panel]('packages/client/public/admin-panel.png')
+![worker-panel](packages/client/public/worker-panel.png)
+![admin-panel](packages/client/public/admin-panel.png)
