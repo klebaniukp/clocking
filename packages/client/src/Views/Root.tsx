@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { routes } from '../routes';
 import { Navbar } from '../components/organisms/Navbar/Navbar';
@@ -25,6 +25,9 @@ export const Root = () => {
                 <Navbar />
 
                 <Switch>
+                    <Route exact path={routes.home}>
+                        <Redirect to={routes.auth} />
+                    </Route>
                     <Route exact path={routes.clocking} component={Clocking} />
                     <Route exact path={routes.auth} component={Auth} />
                     <Route

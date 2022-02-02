@@ -8,6 +8,7 @@ APP FUNCTIONALITIES:
 -   Start / pause / resume / end task functionality
 -   On worker side: showing all timestamps of current task
 -   On admin side: displaying every task with task id, maker email, timestamp and descriptions
+-   Worker can't start task when another task is in progress
 
 ## Tech/framework used 🔧
 
@@ -24,3 +25,13 @@ APP FUNCTIONALITIES:
 | [Bootstrap](https://getbootstrap.com/)         | CSS library                               |
 | [Axios](https://axios-http.com/docs/intro)     | Promise based HTTP client                 |
 | [Redis](https://redis.io/)                     | In-memory data structure store (for chat) |
+
+## Admin panel 👨 💻
+
+login: admin@gmail.com
+password: Password1$
+
+## Photos 🏙
+
+![worker-panel]('./client/public/worker-panel.png')
+![admin-panel]('./client/public/admin-panel.png')
